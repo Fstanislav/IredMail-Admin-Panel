@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background-color: #218838;
+}
+.notification {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+.notification.error {
+    background-color: #f44336;
+}
+.menu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.menu a {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 5px;
+    text-align: center;
+    flex: 1 1 calc(33.333% - 10px);
+    box-sizing: border-box;
+}
+.menu a:hover {
+    background-color: #218838;
+}
+.user-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.user-list th, .user-list td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+.user-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.user-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.user-list tr:hover {
+    background-color: #f1f1f1;
+}
+.user-list td a {
+    color: #28a745;
+    text-decoration: none;
+}
+.user-list td a:hover {
+    text-decoration: underline;
+}
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    .menu {
+        flex-direction: column;
+        align-items: center;
+    }
+    .menu a {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    .form-group input, .form-group button {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .user-list th, .user-list td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .menu a {
+        padding: 8px 10px;
+    }
+    .form-group input, .form-group button {
+        font-size: 12px;
+        padding: 8px;
+    }
+    .user-list th, .user-list td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
