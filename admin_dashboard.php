@@ -103,7 +103,7 @@ try {
         <div class="menu">
             <a href="admin_dashboard.php" class="menu-link">Главная</a>
             <a href="create_user.php" class="menu-link">Создать пользователя</a>
-            <a href="create_ad_user.php" class="menu-link">Создать пользователя AD</a>
+            <!-- <a href="create_ad_user.php" class="menu-link">Создать пользователя AD</a> -->
             <a href="ad_user_list.php" class="menu-link">Все пользователи AD</a>
             <a href="user_list.php" class="menu-link">Все пользователи</a>
             <a href="logout.php" class="menu-link">Выйти</a>
