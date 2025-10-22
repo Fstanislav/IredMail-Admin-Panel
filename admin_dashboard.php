@@ -5,21 +5,30 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
-require 'db_connect.php';
+// Безопасная и необязательная инициализация метрик БД
+$total_users = 0;
+$total_emails = 0;
+$db_error = '';
 
-try {
-    // Получение общего количества пользователей из базы данных vmail
-    $sql = "SELECT COUNT(*) AS total_users FROM mailbox";
-    $stmt = $pdo->query($sql);
-    $total_users = $stmt->fetchColumn();
+if (class_exists('PDO')) {
+    if (file_exists(__DIR__ . '/config.php') && file_exists(__DIR__ . '/db_connect.php')) {
+        try {
+            require __DIR__ . '/db_connect.php'; // создаёт $pdo
+            if (isset($pdo)) {
+                $stmt = $pdo->query("SELECT COUNT(*) AS total_users FROM mailbox");
+                $total_users = (int)$stmt->fetchColumn();
 
-    // Получение общего количества всех писем всех пользователей из базы данных vmail
-    $sql = "SELECT SUM(messages) AS total_emails FROM used_quota";
-    $stmt = $pdo->query($sql);
-    $total_emails = $stmt->fetchColumn();
-} catch (PDOException $e) {
-    echo "Ошибка подключения к базе данных: " . $e->getMessage();
-    exit;
+                $stmt = $pdo->query("SELECT SUM(messages) AS total_emails FROM used_quota");
+                $total_emails = (int)($stmt->fetchColumn() ?: 0);
+            }
+        } catch (Throwable $e) {
+            $db_error = $e->getMessage();
+        }
+    } else {
+        $db_error = 'Конфигурация БД отсутствует. Метрики почты скрыты.';
+    }
+} else {
+    $db_error = 'Расширение PDO не установлено. Метрики почты скрыты.';
 }
 ?>
 <!DOCTYPE html>
@@ -112,13 +121,18 @@ try {
             <div class="stats">
                 <div class="stat-card">
                     <h3>Общее количество пользователей</h3>
-                    <p><?php echo $total_users; ?></p>
+                    <p><?php echo htmlspecialchars((string)$total_users); ?></p>
                 </div>
                 <div class="stat-card">
                     <h3>Общее количество всех писем</h3>
-                    <p><?php echo $total_emails; ?></p>
+                    <p><?php echo htmlspecialchars((string)$total_emails); ?></p>
                 </div>
             </div>
+            <?php if ($db_error): ?>
+                <p style="text-align:center;color:#aa0000;margin-top:10px;">
+                    <?php echo htmlspecialchars($db_error); ?>
+                </p>
+            <?php endif; ?>
         </div>
     </div>
     <script>
