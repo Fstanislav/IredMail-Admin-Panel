@@ -1,0 +1,20 @@
+[Unit]
+Description=Asterisk -> Telegram Call Notifications Bot
+After=network.target asterisk.service
+Requires=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/asterisk-telegram-bot
+ExecStart=/usr/bin/env bash -c '/usr/bin/python3 /opt/asterisk_telegram_bot/bot.py'
+User=asterisk
+Group=asterisk
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
